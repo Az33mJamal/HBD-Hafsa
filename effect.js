@@ -170,7 +170,7 @@ $('document').ready(function(){
 		$('#b88').animate({top:240, left: vw+350},500);
 		$('.balloons').css('opacity','0.9');
 		$('.balloons h2').fadeIn(3000);
-		$(this).fadeOut('slow').delay(3000).promise().done(function(){
+		$(this).fadeOut('slow').delay(6000).promise().done(function(){
 			$('#story').fadeIn('slow');
 		});
 	});
