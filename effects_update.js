@@ -109,6 +109,15 @@ $(document).ready(function () {
             $('.message').fadeIn('slow');
         });
 
+        // function msgLoop(i) {
+        //     if (i >= 50) {
+        //         $("p:nth-child(49)").fadeOut('slow').promise().done(() => {
+        //             $('.cake').fadeIn('fast');
+        //         });
+        //         return;
+        //     }
+        let msgPaused = false;
+
         function msgLoop(i) {
             if (i >= 50) {
                 $("p:nth-child(49)").fadeOut('slow').promise().done(() => {
@@ -116,6 +125,26 @@ $(document).ready(function () {
                 });
                 return;
             }
+        
+            const $current = $("p:nth-child(" + i + ")");
+            const $next = $("p:nth-child(" + (i + 1) + ")");
+        
+            function continueLoop() {
+                if (msgPaused) {
+                    setTimeout(continueLoop, 200); // Poll until resumed
+                    return;
+                }
+        
+                $next.fadeIn('slow').delay(1000).promise().done(() => {
+                    msgLoop(i + 1);
+                });
+            }
+        
+            $current.fadeOut('slow').delay(800).promise().done(() => {
+                continueLoop();
+            });
+        }
+
 
             $("p:nth-child(" + i + ")").fadeOut('slow').delay(800).promise().done(() => {
                 i++;
